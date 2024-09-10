@@ -2,6 +2,7 @@ import unittest
 
 from htmlnode import HTMLNode
 from htmlnode import LeafNode
+from htmlnode import ParentNode
 
 class TestHTMLNode(unittest.TestCase):
     def test_repr(self):
@@ -34,21 +35,45 @@ class TestHTMLNode(unittest.TestCase):
 
 class TestLeafNode(unittest.TestCase):
     def test_tohtml(self):
-        node = LeafNode(None, "BASEBALL",None,None)
+        node = LeafNode(None, "BASEBALL",None)
         self.assertEqual(node.to_html(), "BASEBALL")
     
     def test_tohtml2(self):
-        node = LeafNode("b", "BASEBALL",None,None)
+        node = LeafNode("b", "BASEBALL",None)
         self.assertEqual(node.to_html(), "<b>BASEBALL</b>")
    
     def test_tohtml3(self):
-        node = LeafNode("a", "BASEBALL",None,{"href": "https://www.mlb.com"})
+        node = LeafNode("a", "BASEBALL",{"href": "https://www.mlb.com"})
         self.assertEqual(node.to_html(), "<a href=https://www.mlb.com>BASEBALL</a>")
     
     def test_tohtml4(self):
-        node = LeafNode(None, "BASEBALL",None,{"href": "https://www.mlb.com"})
+        node = LeafNode(None, "BASEBALL",{"href": "https://www.mlb.com"})
         self.assertEqual(node.to_html(), "BASEBALL")
 
+class TestParentNode(unittest.TestCase):
+    def test_tohtml(self):
+        node = ParentNode(
+            "p",
+            [
+                LeafNode("b", "Bold text"),
+                LeafNode(None, "Normal text"),
+                LeafNode("i", "italic text"),
+                LeafNode(None, "Normal text"),
+                ],
+                )
+        self.assertEqual(node.to_html(), "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>")
 
+    def test_tohtmlnotag(self):
+        with self.assertRaises(ValueError) as context:
+            node = ParentNode(None, [LeafNode("b", "Bold text")],)
+            node.to_html()
+        self.assertEqual(str(context.exception), "ParentNode must have a tag")
+    
+    def test_tohtmlnochild(self):
+        with self.assertRaises(ValueError) as context:
+            node = ParentNode("p", [],)
+            node.to_html()
+        self.assertEqual(str(context.exception), "ParentNode must have children")
+        
 if __name__ == "__main__":
     unittest.main()
