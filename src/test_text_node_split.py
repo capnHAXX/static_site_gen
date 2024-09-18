@@ -1,6 +1,6 @@
 import unittest
 
-from text_node_split import split_nodes_delimiter
+from textnode_convert import split_nodes_delimiter
 from textnode import (
     TextNode,
     text_type_text,
