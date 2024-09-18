@@ -13,7 +13,7 @@ class HTMLNode:
             return ""
         def html_prop(item):
             key, value = item
-            return f" {key}={value}"
+            return f' {key}="{value}"'
         html_map = map(html_prop, self.props.items())
         html_string = "".join(html_map)
         return html_string

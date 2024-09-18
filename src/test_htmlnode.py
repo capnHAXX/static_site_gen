@@ -10,14 +10,14 @@ class TestHTMLNode(unittest.TestCase):
                         "This is an HTML node", 
                         [], 
                         {"target": "_blank",})
-        self.assertEqual(node.__repr__(), "HTMLNode(a, This is an HTML node, [], target=_blank)")
+        self.assertEqual(node.__repr__(), 'HTMLNode(a, This is an HTML node, [], target="_blank")')
     
     def test_repr1(self):
         node = HTMLNode("a", 
                         "This is an HTML node", 
-                        ['c1','c2'], 
+                        ["c1","c2"], 
                         {"target": "_blank",})
-        self.assertEqual(node.__repr__(), "HTMLNode(a, This is an HTML node, ['c1', 'c2'], target=_blank)")
+        self.assertEqual(node.__repr__(), 'HTMLNode(a, This is an HTML node,'+" ['c1', 'c2']"+', target="_blank")')
     
     def test_repr2(self):
         node = HTMLNode("a", 
@@ -31,7 +31,7 @@ class TestHTMLNode(unittest.TestCase):
                         None,
                         {"href": "https://www.google.com", "target": "_blank"}
                         )
-        self.assertEqual(node.props_to_html(), " href=https://www.google.com target=_blank")
+        self.assertEqual(node.props_to_html(), ' href="https://www.google.com" target="_blank"')
 
 class TestLeafNode(unittest.TestCase):
     def test_tohtml(self):
@@ -44,7 +44,7 @@ class TestLeafNode(unittest.TestCase):
    
     def test_tohtml3(self):
         node = LeafNode("a", "BASEBALL",{"href": "https://www.mlb.com"})
-        self.assertEqual(node.to_html(), "<a href=https://www.mlb.com>BASEBALL</a>")
+        self.assertEqual(node.to_html(), '<a href="https://www.mlb.com">BASEBALL</a>')
     
     def test_tohtml4(self):
         node = LeafNode(None, "BASEBALL",{"href": "https://www.mlb.com"})
