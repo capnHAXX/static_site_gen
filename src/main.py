@@ -1,11 +1,10 @@
 import os
 import shutil
-from website_builder import (copy_files_recursive, generate_page)
+from website_builder import (copy_files_recursive, generate_pages_recursive)
 public_path = "./public"
 static_path = "./static"
 template_path = "./template.html"
-index_path = "./content/index.md"
-index_destination = os.path.join(public_path,"index.html")
+content_path = "./content"
 
 def main():
     if os.path.exists(public_path):
@@ -15,6 +14,6 @@ def main():
     print("copying files")
     copy_files_recursive(static_path, public_path)
 
-    generate_page(index_path, template_path, index_destination)
+    generate_pages_recursive(content_path, template_path, public_path)
 
 main()
