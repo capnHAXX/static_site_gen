@@ -1,1 +1,1 @@
-python3 src/main.py "/capnHAXX/"
+python3 src/main.py "/capnhaxx/"
