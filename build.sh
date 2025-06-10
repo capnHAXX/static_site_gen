@@ -1,1 +1,1 @@
-python3 src/main.py "/capnhaxx/"
+python3 src/main.py "/static_site_gen/"
